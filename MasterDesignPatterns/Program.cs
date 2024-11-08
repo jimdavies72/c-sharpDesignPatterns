@@ -20,7 +20,8 @@ class Program
         // Behavioral: Objects communicate with each other
         // MementoPattern();
         // StatePattern();
-        StrategyPattern();
+        //StrategyPattern();
+        IteratorPattern();
 
         
     }
@@ -247,4 +248,30 @@ class Program
         videoStorage.SetOverlay(new NoneOverlay());
         videoStorage.Store("Video1");
     }
+    static void IteratorPattern()
+    {
+        ShoppingList list = new ShoppingList();
+        list.Push("Milk");
+        list.Push("Bread");
+        list.Push("Eggs");
+    
+        // this works because the class ShoppingList is a list.
+        // changing it to a fixed length array would cause the loop below to fail
+        // as Array type does not have a .Count property
+        // for (int i=0; i < list.GetList().Count; i++)
+        // {
+        //     var item = list.GetList()[i];
+        //     Console.WriteLine(item);
+        // }
+
+        var iterator = list.CreateIterator();
+        while (iterator.HasNext())
+        {
+            var item = iterator.Current();
+            Console.WriteLine(item);
+            iterator.Next();
+        }
+        
+    }
+
 } //ns
