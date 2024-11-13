@@ -3,6 +3,9 @@ using MasterDesignPatterns.src.SOLID.L;
 using MasterDesignPatterns.src.SOLID.I;
 using MasterDesignPatterns.src.SOLID.D;
 using MasterDesignPatterns.src.DesignPatterns;
+using MasterDesignPatterns.src.DesignPatterns.Behavioral.TemplateMethod;
+using MasterDesignPatterns.src.DesignPatterns.Behavioral.TemplateMethod.Inheritance;
+using MasterDesignPatterns.src.DesignPatterns.Behavioral;
 
 namespace MasterDesignPatterns;
 
@@ -24,7 +27,9 @@ class Program
     //IteratorPattern();
     //CommandPattern();
     //UndoCommandPattern();
-    TemplateMethodPattern();
+    //TemplateMethodPattern();
+    //ObserverPattern();
+    MediatorPattern();
 
       
   }
@@ -305,8 +310,36 @@ class Program
   }
   static void TemplateMethodPattern()
   {
-    DrinksMaker drinksMaker = new DrinksMaker(new HotChocolate());
-    drinksMaker.MakeDrink();
-  }
+    // Polymorphism Method
+    //DrinksMaker drinksMaker = new DrinksMaker(new HotChocolate());
+    //drinksMaker.MakeDrink();
 
+    // Inheritance Method
+    TeaDrink teaDrink = new TeaDrink();
+    teaDrink.Prepare();
+    Console.WriteLine();
+
+    HotChocolateDrink hotChocolateDrink = new HotChocolateDrink();
+    hotChocolateDrink.Prepare();
+  }
+  static void ObserverPattern()
+  {
+    DataSource dataSource = new DataSource();
+    
+    Sheet2 sheet2 = new Sheet2(dataSource);
+    BarChart barChart = new BarChart(dataSource);
+
+    dataSource.AddObserver(sheet2);
+    dataSource.AddObserver(barChart);
+
+    dataSource.SetValues([5, 2, 3, 7, 6, 1]);
+    
+    //dataSource.RemoveObserver(barChart);
+    //dataSource.SetValues([3, 4, 6]);
+  }
+  static void MediatorPattern()
+  {
+    PostsDialogBox postsDialogBox = new PostsDialogBox();
+    postsDialogBox.SimulateUserInteraction();
+  }
 } //ns
